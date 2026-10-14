@@ -2,8 +2,12 @@
 // check-in streak, coins, badges, friends, chat, shared spots and pair streaks. Backend: Supabase.
 (function () {
   const cfg = window.TRACKME_CONFIG || {};
-  const sb = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && window.supabase
+  const real = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && window.supabase
     ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
+  // No Supabase keys yet? Use demo mode (js/demo.js) so every page still works in the browser.
+  const isDemo = !real && !!window.TrackMeDemo;
+  const sb = real || (isDemo ? window.TrackMeDemo.createClient() : null);
+  const demoNote = () => isDemo ? '<div class="panel demo-note"><b>Demo mode</b><p>Sample friends who reply automatically, saved only in this browser. For real accounts, add your Supabase keys in <code>js/config.js</code> and run <code>supabase/schema.sql</code>.</p></div>' : "";
   const headerBtn = document.querySelector(".avatar-btn");
   const headerDefault = headerBtn ? headerBtn.innerHTML : "";
   if (!document.getElementById("profile-view")) return;
@@ -268,6 +272,7 @@
 
   // ===================== SCREENS =====================
   function authHtml() {
+    if (isDemo) return panel("<h2>Welcome to Track Me</h2><p>Start the demo to try profiles, friends, chat, spots and streaks with sample friends.</p>" + '<button class="btn" data-act="demo" type="button">Start demo</button>', "auth");
     if (!sb) return panel("<h2>Accounts need a quick setup</h2><p>Add your Supabase project URL and anon key to <code>js/config.js</code>, run <code>supabase/schema.sql</code> in the Supabase SQL editor, and turn on Google under Authentication &rarr; Providers. Then reload this page.</p>");
     const up = mode === "signup";
     return panel("<h2>" + (up ? "Create your account" : "Welcome back") + "</h2>" +
@@ -301,7 +306,7 @@
     const streak = stats.last_checkin && stats.last_checkin >= isoDay(-1) ? stats.streak : 0;
     const done = stats.last_checkin === isoDay(0);
     const tiles = Object.keys(BADGES).map((k) => '<div class="badge-tile' + (badges.includes(k) ? "" : " is-locked") + '"><span>' + BADGES[k][0] + "</span><b>" + BADGES[k][1] + "</b></div>").join("");
-    el.innerHTML =
+    el.innerHTML = demoNote() +
       panel('<div class="avatar-big" id="avatar-preview">' + avatarSvg(draft) + '</div><div><h2 id="who-name"></h2><p class="muted" id="who-user"></p></div>', "profile-head") +
       '<div class="stats"><div class="panel stat"><span class="stat__big">🔥 <b>' + streak + '</b></span><span>day check-in streak</span><button class="btn btn--sm" data-act="checkin" type="button"' + (done ? " disabled" : "") + ">" + (done ? "Checked in today ✓" : "Check in (+2 coins)") + "</button></div>" +
       '<div class="panel stat"><span class="stat__big">🪙 <b>' + stats.coins + "</b></span><span>coins</span></div></div>" +
@@ -326,10 +331,10 @@
       '<div class="row">' + mini(r.profile) + '<span class="row__main"><b>' + esc(nameOf(r.profile)) + '</b><small>@' + esc(r.profile.username) + '</small></span><button class="btn btn--sm" data-act="accept" data-row="' + r.row + '" type="button">Accept</button><button class="btn btn--sm btn--white" data-act="decline" data-row="' + r.row + '" type="button">Decline</button></div>').join("")) : "";
     const sent = outgoing.length ? panel("<h3>Waiting for a reply</h3>" + outgoing.map((r) =>
       '<div class="row">' + mini(r.profile) + '<span class="row__main"><b>' + esc(nameOf(r.profile)) + '</b><small>@' + esc(r.profile.username) + '</small></span><button class="btn btn--sm btn--white" data-act="cancel" data-row="' + r.row + '" type="button">Cancel</button></div>').join("")) : "";
-    bodyOf("friends").innerHTML =
+    bodyOf("friends").innerHTML = demoNote() +
       '<div class="panel streak-card"><span class="streak-card__fire">🔥</span><div><b class="streak-card__n">' + streak + ' day streak</b><small>Check in daily to keep it going</small></div><button class="btn btn--sm btn--white" data-act="checkin" type="button"' + (done ? " disabled" : "") + ">" + (done ? "Done ✓" : "Check in") + "</button></div>" +
       reqs + panel("<h3>Close friends</h3>" + cards) +
-      panel('<h3>Add a friend</h3><div class="inline"><input class="field" id="f-add" placeholder="Their username" autocapitalize="none" maxlength="20"><button class="btn btn--sm" data-act="add" type="button">Add</button></div><p class="form-msg" id="add-msg" role="status"></p>') + sent;
+      panel('<h3>Add a friend</h3><div class="inline"><input class="field" id="f-add" placeholder="Their username" autocapitalize="none" maxlength="20"><button class="btn btn--sm" data-act="add" type="button">Add</button></div>' + (isDemo ? '<p class="muted">Demo people to try: kai, ava, leo</p>' : "") + '<p class="form-msg" id="add-msg" role="status"></p>') + sent;
   }
 
   const spotLink = (s) => "https://www.openstreetmap.org/?mlat=" + Number(s.lat).toFixed(5) + "&mlon=" + Number(s.lng).toFixed(5) + "#map=17/" + Number(s.lat).toFixed(5) + "/" + Number(s.lng).toFixed(5);
@@ -385,7 +390,7 @@
       if (!f) return "";
       return '<button class="row row--btn" data-act="chat" data-id="' + f.id + '" type="button">' + mini(f.profile) + '<span class="row__main"><b>' + (mine ? "You shared " : esc(nameOf(f.profile)) + " shared ") + esc((m.spot && m.spot.name) || "a spot") + "</b><small>" + (mine ? "with " + esc(nameOf(f.profile)) : "with you") + " · " + timeAgo(m.created_at) + (m.coins ? " · 🪙 " + Number(m.coins) : "") + "</small></span></button>";
     }).join("");
-    bodyOf("activity").innerHTML = panel("<h3>Recent spots</h3>" + (items || "<p>No spots yet. Share one with a friend to start a streak.</p>")) +
+    bodyOf("activity").innerHTML = demoNote() + panel("<h3>Recent spots</h3>" + (items || "<p>No spots yet. Share one with a friend to start a streak.</p>")) +
       panel('<h3>Your badges</h3><div class="badges">' + Object.keys(BADGES).map((k) => '<div class="badge-tile' + (badges.includes(k) ? "" : " is-locked") + '"><span>' + BADGES[k][0] + "</span><b>" + BADGES[k][1] + "</b></div>").join("") + "</div>");
   }
 
@@ -457,6 +462,7 @@
       else if (mode === "signup" && !res.data.session) say("auth-msg", "Check your email to confirm your account, then sign in.", true, root);
     }
     if (act === "signout") { await sb.auth.signOut(); }
+    if (act === "demo") { await sb.auth.signInWithPassword({ email: "demo", password: "demo" }); }
     if (act === "tab") { tab = btn.dataset.tab; root.querySelector("#creator").innerHTML = creatorHtml(); }
     if (act === "opt") {
       const key = btn.dataset.key; draft[key] = isColour(key) ? Number(btn.dataset.val) : btn.dataset.val;
