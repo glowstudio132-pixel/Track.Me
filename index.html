@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Track Me – Discover around you</title>
+  <meta name="description" content="Track Me helps you discover amazing places, hidden gems and new experiences around you.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" onerror="this.onerror=null;this.href='style.css'">
+</head>
+<body>
+
+  <!-- Icon sprite (Lucide-style inline SVG) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-navigation" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.2 7.8 14.1 14.1 7.8 16.2 9.9 9.9 16.2 7.8"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.1 4.6 9 3 3 5v16l6-2 5.1 1.6L21 19V3z"/><path d="M9 3v16M15 5v16"/></symbol>
+      <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M6 2v2"/><path d="M16 8h1a4 4 0 1 1 0 8h-1"/><path d="M4 8h12v9a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/></symbol>
+      <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+      <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2zm0 0v7"/></symbol>
+      <symbol id="i-tree" viewBox="0 0 24 24"><path d="M17 14a5 5 0 1 0-10 0M12 14v8M8 22h8"/><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1-8 0 4 4 0 0 1 4-4z"/></symbol>
+      <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- 1. HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <a class="logo" href="index.html" aria-label="Track Me home">
+        <span class="logo__mark"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <span class="logo__text">Track Me</span>
+      </a>
+      <div class="location-label">
+        <svg class="icon icon--sm" width="16" height="16"><use href="#i-navigation"/></svg>
+        <span>Discover around you</span>
+      </div>
+      <button class="avatar-btn" type="button" aria-label="Profile">
+        <svg class="icon" width="22" height="22"><use href="#i-user"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container main">
+
+    <!-- 2. HERO -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow"><svg class="icon icon--sm" width="16" height="16"><use href="#i-sparkles"/></svg> Welcome to Track Me</p>
+        <h1>
+          <span class="w" style="--i:0">Your</span>
+          <span class="w" style="--i:1">world,</span>
+          <span class="hl"><span class="w" style="--i:2">right</span> <span class="w" style="--i:3">here.</span></span>
+        </h1>
+        <p class="hero__text">Discover amazing places, hidden gems and new experiences around you.</p>
+        <button class="btn btn--primary btn--pulse" id="find-location" type="button">
+          <svg class="icon" width="22" height="22"><use href="#i-navigation"/></svg>
+          Find My Location
+        </button>
+        <div class="loc-status" id="loc-status" role="status" aria-live="polite" hidden>
+          <span class="loc-status__icon" aria-hidden="true"></span>
+          <span class="loc-status__text" id="loc-text"></span>
+          <button class="loc-status__retry" id="loc-retry" type="button" hidden>Try again</button>
+        </div>
+      </div>
+      <div class="hero__art">
+        <div class="map-stage" aria-hidden="true"><div class="map-plane"><svg class="map-svg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="16" fill="#FFFC00" opacity=".8"/><rect x="8" width="8" height="16" fill="#111" opacity=".16"/></pattern></defs><rect x="-1500" y="-1500" width="4000" height="3700" fill="#8AD0F5"/><path d="M60 60q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M300 28q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M700 36q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M880 90q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M110 640q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M520 668q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M900 664q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M30 430q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M930 250q12 -9 24 0t24 0t24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/><rect x="150" y="62" width="700" height="580" rx="70" fill="#F6E9B9"/><rect x="165" y="76" width="670" height="552" rx="60" fill="#CDE8A8"/><rect x="8" y="190" width="132" height="340" rx="30" fill="#F6E9B9"/><rect x="18" y="200" width="112" height="320" rx="24" fill="#D8D6CE"/><rect x="18" y="200" width="112" height="320" rx="24" fill="url(#hatch)"/><rect x="862" y="340" width="130" height="300" rx="30" fill="#F6E9B9"/><rect x="872" y="350" width="110" height="280" rx="24" fill="#BFE2A0"/><circle cx="892" cy="375" r="8" fill="#3E9B52"/><circle cx="890" cy="372" r="4" fill="#5CBB65"/><circle cx="892" cy="403" r="8" fill="#3E9B52"/><circle cx="890" cy="400" r="4" fill="#5CBB65"/><circle cx="892" cy="431" r="8" fill="#3E9B52"/><circle cx="890" cy="428" r="4" fill="#5CBB65"/><circle cx="892" cy="459" r="8" fill="#3E9B52"/><circle cx="890" cy="456" r="4" fill="#5CBB65"/><circle cx="892" cy="487" r="8" fill="#3E9B52"/><circle cx="890" cy="484" r="4" fill="#5CBB65"/><circle cx="892" cy="515" r="8" fill="#3E9B52"/><circle cx="890" cy="512" r="4" fill="#5CBB65"/><circle cx="892" cy="543" r="8" fill="#3E9B52"/><circle cx="890" cy="540" r="4" fill="#5CBB65"/><circle cx="892" cy="571" r="8" fill="#3E9B52"/><circle cx="890" cy="568" r="4" fill="#5CBB65"/><circle cx="892" cy="599" r="8" fill="#3E9B52"/><circle cx="890" cy="596" r="4" fill="#5CBB65"/><circle cx="916" cy="375" r="8" fill="#3E9B52"/><circle cx="914" cy="372" r="4" fill="#5CBB65"/><circle cx="916" cy="403" r="8" fill="#3E9B52"/><circle cx="914" cy="400" r="4" fill="#5CBB65"/><circle cx="916" cy="431" r="8" fill="#3E9B52"/><circle cx="914" cy="428" r="4" fill="#5CBB65"/><circle cx="916" cy="459" r="8" fill="#3E9B52"/><circle cx="914" cy="456" r="4" fill="#5CBB65"/><circle cx="916" cy="487" r="8" fill="#3E9B52"/><circle cx="914" cy="484" r="4" fill="#5CBB65"/><circle cx="916" cy="515" r="8" fill="#3E9B52"/><circle cx="914" cy="512" r="4" fill="#5CBB65"/><circle cx="916" cy="543" r="8" fill="#3E9B52"/><circle cx="914" cy="540" r="4" fill="#5CBB65"/><circle cx="916" cy="571" r="8" fill="#3E9B52"/><circle cx="914" cy="568" r="4" fill="#5CBB65"/><circle cx="916" cy="599" r="8" fill="#3E9B52"/><circle cx="914" cy="596" r="4" fill="#5CBB65"/><circle cx="940" cy="375" r="8" fill="#3E9B52"/><circle cx="938" cy="372" r="4" fill="#5CBB65"/><circle cx="940" cy="403" r="8" fill="#3E9B52"/><circle cx="938" cy="400" r="4" fill="#5CBB65"/><circle cx="940" cy="431" r="8" fill="#3E9B52"/><circle cx="938" cy="428" r="4" fill="#5CBB65"/><circle cx="940" cy="459" r="8" fill="#3E9B52"/><circle cx="938" cy="456" r="4" fill="#5CBB65"/><circle cx="940" cy="487" r="8" fill="#3E9B52"/><circle cx="938" cy="484" r="4" fill="#5CBB65"/><circle cx="940" cy="515" r="8" fill="#3E9B52"/><circle cx="938" cy="512" r="4" fill="#5CBB65"/><circle cx="940" cy="543" r="8" fill="#3E9B52"/><circle cx="938" cy="540" r="4" fill="#5CBB65"/><circle cx="940" cy="571" r="8" fill="#3E9B52"/><circle cx="938" cy="568" r="4" fill="#5CBB65"/><circle cx="940" cy="599" r="8" fill="#3E9B52"/><circle cx="938" cy="596" r="4" fill="#5CBB65"/><circle cx="964" cy="375" r="8" fill="#3E9B52"/><circle cx="962" cy="372" r="4" fill="#5CBB65"/><circle cx="964" cy="403" r="8" fill="#3E9B52"/><circle cx="962" cy="400" r="4" fill="#5CBB65"/><circle cx="964" cy="431" r="8" fill="#3E9B52"/><circle cx="962" cy="428" r="4" fill="#5CBB65"/><circle cx="964" cy="459" r="8" fill="#3E9B52"/><circle cx="962" cy="456" r="4" fill="#5CBB65"/><circle cx="964" cy="487" r="8" fill="#3E9B52"/><circle cx="962" cy="484" r="4" fill="#5CBB65"/><circle cx="964" cy="515" r="8" fill="#3E9B52"/><circle cx="962" cy="512" r="4" fill="#5CBB65"/><circle cx="964" cy="543" r="8" fill="#3E9B52"/><circle cx="962" cy="540" r="4" fill="#5CBB65"/><circle cx="964" cy="571" r="8" fill="#3E9B52"/><circle cx="962" cy="568" r="4" fill="#5CBB65"/><circle cx="964" cy="599" r="8" fill="#3E9B52"/><circle cx="962" cy="596" r="4" fill="#5CBB65"/><rect x="136" y="330" width="40" height="22" fill="#fff"/><rect x="824" y="480" width="50" height="22" fill="#fff"/><path d="M330 76V628M500 76V628M670 76V628M165 230H835M165 350H835M165 470H835" stroke="#D2D2D2" stroke-width="22" fill="none"/><path d="M330 76V628M500 76V628M670 76V628M165 230H835M165 350H835M165 470H835" stroke="#fff" stroke-width="16" fill="none"/><rect x="188" y="106" width="55" height="47" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="182" y="99" width="55" height="47" rx="4" fill="#AEB3C2"/><rect x="177" y="93" width="55" height="47" rx="4" fill="#E4E8F2"/><rect x="188" y="168" width="52" height="51" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="182" y="161" width="52" height="51" rx="4" fill="#AEB3C2"/><rect x="177" y="155" width="52" height="51" rx="4" fill="#E4E8F2"/><rect x="261" y="165" width="51" height="44" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="255" y="158" width="51" height="44" rx="4" fill="#AEB3C2"/><rect x="250" y="152" width="51" height="44" rx="4" fill="#FFE08A"/><rect x="186" y="254" width="54" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="180" y="247" width="54" height="34" rx="4" fill="#AEB3C2"/><rect x="175" y="241" width="54" height="34" rx="4" fill="#F7F7F5"/><rect x="185" y="304" width="55" height="28" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="179" y="297" width="55" height="28" rx="4" fill="#AEB3C2"/><rect x="174" y="291" width="55" height="28" rx="4" fill="#E4E8F2"/><rect x="259" y="258" width="55" height="32" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="253" y="251" width="55" height="32" rx="4" fill="#AEB3C2"/><rect x="248" y="245" width="55" height="32" rx="4" fill="#FFC9A3"/><rect x="262" y="306" width="56" height="33" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="256" y="299" width="56" height="33" rx="4" fill="#AEB3C2"/><rect x="251" y="293" width="56" height="33" rx="4" fill="#F7F7F5"/><rect x="179" y="367" width="134" height="86" rx="14" fill="#9AD37A" stroke="#86C266" stroke-width="3"/><circle cx="200" cy="428" r="9" fill="#4E6B3A" opacity=".25"/><circle cx="200" cy="425" r="9" fill="#3E9B52"/><circle cx="198" cy="422" r="4" fill="#5CBB65"/><circle cx="283" cy="406" r="11" fill="#4E6B3A" opacity=".25"/><circle cx="283" cy="403" r="11" fill="#3E9B52"/><circle cx="281" cy="400" r="5" fill="#5CBB65"/><circle cx="283" cy="384" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="283" cy="381" r="8" fill="#3E9B52"/><circle cx="281" cy="378" r="4" fill="#5CBB65"/><circle cx="289" cy="411" r="11" fill="#4E6B3A" opacity=".25"/><circle cx="289" cy="408" r="11" fill="#3E9B52"/><circle cx="287" cy="405" r="5" fill="#5CBB65"/><circle cx="235" cy="388" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="235" cy="385" r="10" fill="#3E9B52"/><circle cx="233" cy="382" r="5" fill="#5CBB65"/><circle cx="276" cy="400" r="7" fill="#4E6B3A" opacity=".25"/><circle cx="276" cy="397" r="7" fill="#3E9B52"/><circle cx="274" cy="394" r="4" fill="#5CBB65"/><circle cx="228" cy="440" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="228" cy="437" r="10" fill="#3E9B52"/><circle cx="226" cy="434" r="5" fill="#5CBB65"/><circle cx="206" cy="398" r="7" fill="#4E6B3A" opacity=".25"/><circle cx="206" cy="395" r="7" fill="#3E9B52"/><circle cx="204" cy="392" r="4" fill="#5CBB65"/><circle cx="199" cy="430" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="199" cy="427" r="8" fill="#3E9B52"/><circle cx="197" cy="424" r="4" fill="#5CBB65"/><rect x="188" y="495" width="53" height="52" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="182" y="488" width="53" height="52" rx="4" fill="#AEB3C2"/><rect x="177" y="482" width="53" height="52" rx="4" fill="#FFE08A"/><rect x="258" y="496" width="51" height="47" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="252" y="489" width="51" height="47" rx="4" fill="#AEB3C2"/><rect x="247" y="483" width="51" height="47" rx="4" fill="#E4E8F2"/><rect x="258" y="563" width="52" height="48" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="252" y="556" width="52" height="48" rx="4" fill="#AEB3C2"/><rect x="247" y="550" width="52" height="48" rx="4" fill="#F7F7F5"/><rect x="354" y="102" width="53" height="49" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="348" y="95" width="53" height="49" rx="4" fill="#AEB3C2"/><rect x="343" y="89" width="53" height="49" rx="4" fill="#E4E8F2"/><rect x="427" y="168" width="57" height="48" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="421" y="161" width="57" height="48" rx="4" fill="#AEB3C2"/><rect x="416" y="155" width="57" height="48" rx="4" fill="#FFC9A3"/><rect x="356" y="259" width="58" height="33" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="350" y="252" width="58" height="33" rx="4" fill="#AEB3C2"/><rect x="345" y="246" width="58" height="33" rx="4" fill="#D4C8FF"/><rect x="354" y="303" width="54" height="27" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="348" y="296" width="54" height="27" rx="4" fill="#AEB3C2"/><rect x="343" y="290" width="54" height="27" rx="4" fill="#F7F7F5"/><rect x="431" y="258" width="56" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="425" y="251" width="56" height="34" rx="4" fill="#AEB3C2"/><rect x="420" y="245" width="56" height="34" rx="4" fill="#F7F7F5"/><rect x="427" y="306" width="57" height="28" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="421" y="299" width="57" height="28" rx="4" fill="#AEB3C2"/><rect x="416" y="293" width="57" height="28" rx="4" fill="#FFE08A"/><rect x="358" y="380" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="352" y="373" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="347" y="367" width="42" height="34" rx="4" fill="#FF5FA2"/><rect x="403" y="380" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="397" y="373" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="392" y="367" width="42" height="34" rx="4" fill="#FFFC00"/><rect x="449" y="380" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="443" y="373" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="438" y="367" width="42" height="34" rx="4" fill="#0FADFF"/><rect x="358" y="417" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="352" y="410" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="347" y="404" width="42" height="34" rx="4" fill="#22BB86"/><rect x="403" y="417" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="397" y="410" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="392" y="404" width="42" height="34" rx="4" fill="#FF8A3D"/><rect x="449" y="417" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="443" y="410" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="438" y="404" width="42" height="34" rx="4" fill="#7B4DFF"/><rect x="358" y="454" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="352" y="447" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="347" y="441" width="42" height="34" rx="4" fill="#FF5FA2"/><rect x="403" y="454" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="397" y="447" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="392" y="441" width="42" height="34" rx="4" fill="#0FADFF"/><rect x="449" y="454" width="42" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="443" y="447" width="42" height="34" rx="4" fill="#AEB3C2"/><rect x="438" y="441" width="42" height="34" rx="4" fill="#FFFC00"/><rect x="354" y="498" width="59" height="52" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="348" y="491" width="59" height="52" rx="4" fill="#AEB3C2"/><rect x="343" y="485" width="59" height="52" rx="4" fill="#E4E8F2"/><rect x="357" y="562" width="52" height="52" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="351" y="555" width="52" height="52" rx="4" fill="#AEB3C2"/><rect x="346" y="549" width="52" height="52" rx="4" fill="#F7F7F5"/><rect x="428" y="494" width="58" height="51" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="422" y="487" width="58" height="51" rx="4" fill="#AEB3C2"/><rect x="417" y="481" width="58" height="51" rx="4" fill="#E4E8F2"/><rect x="428" y="566" width="52" height="48" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="422" y="559" width="52" height="48" rx="4" fill="#AEB3C2"/><rect x="417" y="553" width="52" height="48" rx="4" fill="#FFE08A"/><rect x="517" y="93" width="136" height="120" rx="14" fill="#9AD37A" stroke="#86C266" stroke-width="3"/><circle cx="594" cy="123" r="7" fill="#4E6B3A" opacity=".25"/><circle cx="594" cy="120" r="7" fill="#3E9B52"/><circle cx="592" cy="117" r="4" fill="#5CBB65"/><circle cx="533" cy="194" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="533" cy="191" r="10" fill="#3E9B52"/><circle cx="531" cy="188" r="5" fill="#5CBB65"/><circle cx="635" cy="112" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="635" cy="109" r="10" fill="#3E9B52"/><circle cx="633" cy="106" r="5" fill="#5CBB65"/><circle cx="583" cy="177" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="583" cy="174" r="8" fill="#3E9B52"/><circle cx="581" cy="171" r="4" fill="#5CBB65"/><circle cx="639" cy="117" r="9" fill="#4E6B3A" opacity=".25"/><circle cx="639" cy="114" r="9" fill="#3E9B52"/><circle cx="637" cy="111" r="5" fill="#5CBB65"/><circle cx="611" cy="193" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="611" cy="190" r="10" fill="#3E9B52"/><circle cx="609" cy="187" r="5" fill="#5CBB65"/><circle cx="607" cy="183" r="11" fill="#4E6B3A" opacity=".25"/><circle cx="607" cy="180" r="11" fill="#3E9B52"/><circle cx="605" cy="177" r="5" fill="#5CBB65"/><circle cx="569" cy="173" r="11" fill="#4E6B3A" opacity=".25"/><circle cx="569" cy="170" r="11" fill="#3E9B52"/><circle cx="567" cy="167" r="5" fill="#5CBB65"/><circle cx="625" cy="148" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="625" cy="145" r="10" fill="#3E9B52"/><circle cx="623" cy="142" r="5" fill="#5CBB65"/><rect x="526" y="258" width="56" height="30" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="520" y="251" width="56" height="30" rx="4" fill="#AEB3C2"/><rect x="515" y="245" width="56" height="30" rx="4" fill="#FFE08A"/><rect x="601" y="259" width="54" height="31" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="595" y="252" width="54" height="31" rx="4" fill="#AEB3C2"/><rect x="590" y="246" width="54" height="31" rx="4" fill="#FFE08A"/><rect x="598" y="307" width="59" height="28" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="592" y="300" width="59" height="28" rx="4" fill="#AEB3C2"/><rect x="587" y="294" width="59" height="28" rx="4" fill="#F7F7F5"/><rect x="526" y="375" width="54" height="31" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="520" y="368" width="54" height="31" rx="4" fill="#AEB3C2"/><rect x="515" y="362" width="54" height="31" rx="4" fill="#FFE08A"/><rect x="525" y="422" width="57" height="29" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="519" y="415" width="57" height="29" rx="4" fill="#AEB3C2"/><rect x="514" y="409" width="57" height="29" rx="4" fill="#F7F7F5"/><rect x="601" y="378" width="56" height="27" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="595" y="371" width="56" height="27" rx="4" fill="#AEB3C2"/><rect x="590" y="365" width="56" height="27" rx="4" fill="#E4E8F2"/><rect x="597" y="424" width="53" height="27" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="591" y="417" width="53" height="27" rx="4" fill="#AEB3C2"/><rect x="586" y="411" width="53" height="27" rx="4" fill="#A9DCFF"/><rect x="526" y="496" width="58" height="50" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="520" y="489" width="58" height="50" rx="4" fill="#AEB3C2"/><rect x="515" y="483" width="58" height="50" rx="4" fill="#A9DCFF"/><rect x="527" y="566" width="57" height="52" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="521" y="559" width="57" height="52" rx="4" fill="#AEB3C2"/><rect x="516" y="553" width="57" height="52" rx="4" fill="#E4E8F2"/><rect x="597" y="496" width="54" height="50" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="591" y="489" width="54" height="50" rx="4" fill="#AEB3C2"/><rect x="586" y="483" width="54" height="50" rx="4" fill="#E4E8F2"/><rect x="601" y="563" width="59" height="53" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="595" y="556" width="59" height="53" rx="4" fill="#AEB3C2"/><rect x="590" y="550" width="59" height="53" rx="4" fill="#A9DCFF"/><rect x="696" y="166" width="51" height="51" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="690" y="159" width="51" height="51" rx="4" fill="#AEB3C2"/><rect x="685" y="153" width="51" height="51" rx="4" fill="#F7F7F5"/><rect x="763" y="105" width="55" height="50" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="757" y="98" width="55" height="50" rx="4" fill="#AEB3C2"/><rect x="752" y="92" width="55" height="50" rx="4" fill="#F7F7F5"/><rect x="766" y="168" width="52" height="45" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="760" y="161" width="52" height="45" rx="4" fill="#AEB3C2"/><rect x="755" y="155" width="52" height="45" rx="4" fill="#FFC9A3"/><rect x="694" y="257" width="56" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="688" y="250" width="56" height="34" rx="4" fill="#AEB3C2"/><rect x="683" y="244" width="56" height="34" rx="4" fill="#E4E8F2"/><rect x="694" y="303" width="54" height="29" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="688" y="296" width="54" height="29" rx="4" fill="#AEB3C2"/><rect x="683" y="290" width="54" height="29" rx="4" fill="#E4E8F2"/><rect x="768" y="256" width="51" height="27" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="762" y="249" width="51" height="27" rx="4" fill="#AEB3C2"/><rect x="757" y="243" width="51" height="27" rx="4" fill="#F7F7F5"/><rect x="767" y="302" width="53" height="29" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="761" y="295" width="53" height="29" rx="4" fill="#AEB3C2"/><rect x="756" y="289" width="53" height="29" rx="4" fill="#D4C8FF"/><rect x="696" y="379" width="51" height="27" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="690" y="372" width="51" height="27" rx="4" fill="#AEB3C2"/><rect x="685" y="366" width="51" height="27" rx="4" fill="#E4E8F2"/><rect x="694" y="426" width="50" height="29" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="688" y="419" width="50" height="29" rx="4" fill="#AEB3C2"/><rect x="683" y="413" width="50" height="29" rx="4" fill="#FFE08A"/><rect x="768" y="380" width="49" height="30" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="762" y="373" width="49" height="30" rx="4" fill="#AEB3C2"/><rect x="757" y="367" width="49" height="30" rx="4" fill="#FFB8D6"/><rect x="768" y="427" width="54" height="34" rx="4" fill="#4E6B3A" opacity=".28"/><rect x="762" y="420" width="54" height="34" rx="4" fill="#AEB3C2"/><rect x="757" y="414" width="54" height="34" rx="4" fill="#E4E8F2"/><rect x="687" y="487" width="131" height="124" rx="14" fill="#9AD37A" stroke="#86C266" stroke-width="3"/><rect x="716" y="527" width="72" height="44" rx="3" fill="#E0805B" stroke="#fff" stroke-width="2.5"/><path d="M752 527v44" stroke="#fff" stroke-width="2.5"/><circle cx="758" cy="578" r="9" fill="#4E6B3A" opacity=".25"/><circle cx="758" cy="575" r="9" fill="#3E9B52"/><circle cx="756" cy="572" r="4" fill="#5CBB65"/><circle cx="704" cy="582" r="7" fill="#4E6B3A" opacity=".25"/><circle cx="704" cy="579" r="7" fill="#3E9B52"/><circle cx="702" cy="576" r="4" fill="#5CBB65"/><circle cx="783" cy="521" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="783" cy="518" r="8" fill="#3E9B52"/><circle cx="781" cy="515" r="4" fill="#5CBB65"/><circle cx="782" cy="517" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="782" cy="514" r="8" fill="#3E9B52"/><circle cx="780" cy="511" r="4" fill="#5CBB65"/><circle cx="754" cy="573" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="754" cy="570" r="10" fill="#3E9B52"/><circle cx="752" cy="567" r="5" fill="#5CBB65"/><circle cx="772" cy="595" r="9" fill="#4E6B3A" opacity=".25"/><circle cx="772" cy="592" r="9" fill="#3E9B52"/><circle cx="770" cy="589" r="4" fill="#5CBB65"/><circle cx="799" cy="512" r="8" fill="#4E6B3A" opacity=".25"/><circle cx="799" cy="509" r="8" fill="#3E9B52"/><circle cx="797" cy="506" r="4" fill="#5CBB65"/><circle cx="755" cy="532" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="755" cy="529" r="10" fill="#3E9B52"/><circle cx="753" cy="526" r="5" fill="#5CBB65"/><circle cx="767" cy="554" r="10" fill="#4E6B3A" opacity=".25"/><circle cx="767" cy="551" r="10" fill="#3E9B52"/><circle cx="765" cy="548" r="5" fill="#5CBB65"/><rect x="380" y="64" width="34" height="20" rx="3" fill="#fff" stroke="#111" stroke-width="2.5"/><rect x="384" y="68" width="26" height="12" rx="2" fill="#FFFC00"/><rect x="396" y="84" width="3" height="10" fill="#111"/><rect x="560" y="60" width="34" height="20" rx="3" fill="#fff" stroke="#111" stroke-width="2.5"/><rect x="564" y="64" width="26" height="12" rx="2" fill="#FF5FA2"/><rect x="576" y="80" width="3" height="10" fill="#111"/><rect x="740" y="66" width="34" height="20" rx="3" fill="#fff" stroke="#111" stroke-width="2.5"/><rect x="744" y="70" width="26" height="12" rx="2" fill="#0FADFF"/><rect x="756" y="86" width="3" height="10" fill="#111"/><rect x="250" y="634" width="34" height="20" rx="3" fill="#fff" stroke="#111" stroke-width="2.5"/><rect x="254" y="638" width="26" height="12" rx="2" fill="#7B4DFF"/><rect x="266" y="654" width="3" height="10" fill="#111"/><rect x="620" y="638" width="34" height="20" rx="3" fill="#fff" stroke="#111" stroke-width="2.5"/><rect x="624" y="642" width="26" height="12" rx="2" fill="#FFFC00"/><rect x="636" y="658" width="3" height="10" fill="#111"/><circle r="7" fill="#FF5FA2" stroke="#111" stroke-width="2.5"><animateMotion dur="16s" begin="0s" repeatCount="indefinite" path="M165 350H835H165"/></circle><circle r="7" fill="#0FADFF" stroke="#111" stroke-width="2.5"><animateMotion dur="19s" begin="-6s" repeatCount="indefinite" path="M500 76V628V76"/></circle><circle r="7" fill="#FFFC00" stroke="#111" stroke-width="2.5"><animateMotion dur="23s" begin="-3s" repeatCount="indefinite" path="M330 76V628V76"/></circle><circle r="7" fill="#7B4DFF" stroke="#111" stroke-width="2.5"><animateMotion dur="21s" begin="-9s" repeatCount="indefinite" path="M165 230H835H165"/></circle><circle r="7" fill="#22BB86" stroke="#111" stroke-width="2.5"><animateMotion dur="18s" begin="-12s" repeatCount="indefinite" path="M670 628V76V628"/></circle><circle r="7" fill="#FF8A3D" stroke="#111" stroke-width="2.5"><animateMotion dur="17s" begin="-4s" repeatCount="indefinite" path="M330 230H670V470H330Z"/></circle><circle r="7" fill="#0FADFF" stroke="#111" stroke-width="2.5"><animateMotion dur="25s" begin="-14s" repeatCount="indefinite" path="M165 470H835H165"/></circle><ellipse rx="14" ry="6" fill="#fff" stroke="#111" stroke-width="2.5"><animateMotion dur="44s" begin="0s" repeatCount="indefinite" path="M-200 40H1200"/></ellipse><ellipse rx="14" ry="6" fill="#fff" stroke="#111" stroke-width="2.5"><animateMotion dur="52s" begin="-20s" repeatCount="indefinite" path="M1200 672H-200"/></ellipse></svg></div></div>
+        <div class="mpins">
+        <button class="mpin is-open" style="--c:#D9962B;--x:58%;--y:34%;--d:.9s" type="button" aria-label="Velvet Fig Café (sample place)"><svg class="icon" width="20" height="20"><use href="#i-coffee"/></svg><span class="mpin__label">Velvet Fig Café</span></button>
+        <button class="mpin" style="--c:#22BB86;--x:80%;--y:44%;--d:1.05s" type="button" aria-label="Orchard Lane Market (sample place)"><svg class="icon" width="20" height="20"><use href="#i-cart"/></svg><span class="mpin__label">Orchard Lane Market</span></button>
+        <button class="mpin" style="--c:#FF8A3D;--x:44%;--y:46%;--d:1.2s" type="button" aria-label="Moonlit Grill House (sample place)"><svg class="icon" width="20" height="20"><use href="#i-utensils"/></svg><span class="mpin__label">Moonlit Grill House</span></button>
+        <button class="mpin is-open" style="--c:#4CC05A;--x:68%;--y:72%;--d:1.35s" type="button" aria-label="Plumeria Park Walk (sample place)"><svg class="icon" width="20" height="20"><use href="#i-tree"/></svg><span class="mpin__label">Plumeria Park Walk</span></button>
+        <button class="mpin" style="--c:#7B4DFF;--x:88%;--y:30%;--d:1.5s" type="button" aria-label="Neon Arcade (sample place)"><svg class="icon" width="20" height="20"><use href="#i-sparkles"/></svg><span class="mpin__label">Neon Arcade</span></button>
+        <button class="mpin" style="--c:#FF5FA2;--x:38%;--y:72%;--d:1.65s" type="button" aria-label="Harbour Mall (sample place)"><svg class="icon" width="20" height="20"><use href="#i-bag"/></svg><span class="mpin__label">Harbour Mall</span></button>
+          <span class="me" style="--x:58%;--y:55%" aria-hidden="true"><span class="me__label">You (demo)</span></span>
+        </div>
+        <div class="map-ui map-ui--top">
+          <div class="map-pill"><span class="live-dot"></span><strong>Live preview</strong><span>· sample data</span></div>
+          <div class="map-chips">
+            <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-coffee"/></svg> Velvet Fig Café</span>
+            <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-cart"/></svg> Orchard Lane</span>
+            <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-tree"/></svg> Plumeria Park</span>
+          </div>
+        </div>
+        <div class="map-ui map-ui--bottom">
+          <div class="avatars" aria-hidden="true"><span style="--a:#FF5FA2"><svg class="icon icon--sm" width="16" height="16"><use href="#i-user"/></svg></span><span style="--a:#0FADFF"><svg class="icon icon--sm" width="16" height="16"><use href="#i-user"/></svg></span><span style="--a:#FFFC00"><svg class="icon icon--sm" width="16" height="16"><use href="#i-user"/></svg></span><span style="--a:#22BB86"><svg class="icon icon--sm" width="16" height="16"><use href="#i-user"/></svg></span></div>
+          <p><strong>Your city, live.</strong> A sample preview of how places will light up around you.</p>
+          <button class="btn btn--sm" type="button">Explore map</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track"><div class="marquee__group"><span>Shopping</span><i>✦</i><span>Restaurants</span><i>✦</i><span>Cafés</span><i>✦</i><span>Supermarkets</span><i>✦</i><span>Hangouts</span><i>✦</i><span>Parks</span><i>✦</i><span>Hidden gems</span><i>✦</i></div><div class="marquee__group"><span>Shopping</span><i>✦</i><span>Restaurants</span><i>✦</i><span>Cafés</span><i>✦</i><span>Supermarkets</span><i>✦</i><span>Hangouts</span><i>✦</i><span>Parks</span><i>✦</i><span>Hidden gems</span><i>✦</i></div></div>
+    </div>
+
+    <!-- 3. SEARCH -->
+    <div class="search reveal">
+      <svg class="icon" width="22" height="22"><use href="#i-search"/></svg>
+      <input type="search" placeholder="Find malls, restaurants, cafés..." aria-label="Search places">
+    </div>
+
+    <!-- 4. CATEGORY CHIPS -->
+    <div class="chips reveal" role="list" aria-label="Categories">
+      <button class="chip is-active" type="button" role="listitem" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" role="listitem" data-filter="shopping" aria-pressed="false">Shopping</button>
+      <button class="chip" type="button" role="listitem" data-filter="restaurants" aria-pressed="false">Restaurants</button>
+      <button class="chip" type="button" role="listitem" data-filter="cafes" aria-pressed="false">Cafés</button>
+      <button class="chip" type="button" role="listitem" data-filter="supermarkets" aria-pressed="false">Supermarkets</button>
+      <button class="chip" type="button" role="listitem" data-filter="hangouts" aria-pressed="false">Hangouts</button>
+      <button class="chip" type="button" role="listitem" data-filter="parks" aria-pressed="false">Parks</button>
+      <button class="chip" type="button" role="listitem" data-filter="essentials" aria-pressed="false">Essentials</button>
+    </div>
+
+    <!-- 5. DISCOVERY -->
+    <section class="section" aria-labelledby="discover-title">
+      <div class="section__head reveal">
+        <h2 id="discover-title">Discover around you</h2>
+        <p>Places worth checking out.</p>
+        <p class="note" id="discover-note">Sample content only: these are fictional places and distances for demonstration.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal" data-category="cafes">
+          <div class="card__img card__img--1">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=640&q=70" alt="Illustrative stock photo" loading="lazy" width="640" height="400">
+            <svg class="icon icon--xl" width="44" height="44"><use href="#i-coffee"/></svg>
+            <span class="badge">Sample</span>
+          </div>
+          <div class="card__body">
+            <h3>Velvet Fig Café</h3>
+            <p class="card__cat">Cafés</p>
+            <p class="card__dist"><svg class="icon icon--sm" width="16" height="16"><use href="#i-pin"/></svg> 0.4 km · demo distance</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="supermarkets">
+          <div class="card__img card__img--2">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=70" alt="Illustrative stock photo" loading="lazy" width="640" height="400">
+            <svg class="icon icon--xl" width="44" height="44"><use href="#i-cart"/></svg>
+            <span class="badge">Sample</span>
+          </div>
+          <div class="card__body">
+            <h3>Orchard Lane Market</h3>
+            <p class="card__cat">Supermarkets</p>
+            <p class="card__dist"><svg class="icon icon--sm" width="16" height="16"><use href="#i-pin"/></svg> 1.2 km · demo distance</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="restaurants">
+          <div class="card__img card__img--3">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=640&q=70" alt="Illustrative stock photo" loading="lazy" width="640" height="400">
+            <svg class="icon icon--xl" width="44" height="44"><use href="#i-utensils"/></svg>
+            <span class="badge">Sample</span>
+          </div>
+          <div class="card__body">
+            <h3>Moonlit Grill House</h3>
+            <p class="card__cat">Restaurants</p>
+            <p class="card__dist"><svg class="icon icon--sm" width="16" height="16"><use href="#i-pin"/></svg> 2.0 km · demo distance</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="parks">
+          <div class="card__img card__img--4">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=640&q=70" alt="Illustrative stock photo" loading="lazy" width="640" height="400">
+            <svg class="icon icon--xl" width="44" height="44"><use href="#i-tree"/></svg>
+            <span class="badge">Sample</span>
+          </div>
+          <div class="card__body">
+            <h3>Plumeria Park Walk</h3>
+            <p class="card__cat">Parks</p>
+            <p class="card__dist"><svg class="icon icon--sm" width="16" height="16"><use href="#i-pin"/></svg> 2.8 km · demo distance</p>
+          </div>
+        </article>
+      </div>
+      <div class="empty" id="places-status" role="status" aria-live="polite" hidden>
+        <span class="empty__icon"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <p id="places-text"></p>
+        <button class="btn btn--sm" id="places-retry" type="button" hidden>Try again</button>
+      </div>
+      <div class="empty" id="empty-state" role="status" hidden>
+        <span class="empty__icon"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <p>No places in this category yet.</p>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="section__head reveal">
+        <h2 id="how-title">How Track Me works</h2>
+        <p>Three easy steps from "where am I?" to "let's go."</p>
+      </div>
+      <div class="steps">
+        <article class="step step--1 reveal"><span class="step__num">01</span><span class="step__icon"><svg class="icon" width="22" height="22"><use href="#i-navigation"/></svg></span><h3>Share your spot</h3><p>Tell Track Me where you are and your neighbourhood comes alive.</p></article>
+        <article class="step step--2 reveal"><span class="step__num">02</span><span class="step__icon"><svg class="icon" width="22" height="22"><use href="#i-search"/></svg></span><h3>Find what's near</h3><p>Browse cafés, malls, parks, restaurants and hidden gems around you.</p></article>
+        <article class="step step--3 reveal"><span class="step__num">03</span><span class="step__icon"><svg class="icon" width="22" height="22"><use href="#i-bookmark"/></svg></span><h3>Save and go</h3><p>Keep your favourite places in one spot and head out when you're ready.</p></article>
+      </div>
+    </section>
+
+    <div class="duo">
+    <!-- 6. FEATURED -->
+    <section class="featured reveal">
+      <span class="featured__glow" aria-hidden="true"></span>
+      <svg class="featured__pin" aria-hidden="true" width="150" height="150"><use href="#i-pin"/></svg>
+      <p class="eyebrow eyebrow--light"><svg class="icon icon--sm" width="16" height="16"><use href="#i-sparkles"/></svg> Featured</p>
+      <h2>Your next favourite spot awaits.</h2>
+      <p>From cosy corners to lively hangouts, Track Me will help you find places that fit your mood.</p>
+      <div class="featured__tags">
+        <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-coffee"/></svg> Cafés</span>
+        <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-tree"/></svg> Parks</span>
+        <span class="pill"><svg class="icon icon--sm" width="16" height="16"><use href="#i-utensils"/></svg> Dining</span>
+      </div>
+      <button class="btn btn--light" type="button">
+        Explore places
+        <svg class="icon" width="22" height="22"><use href="#i-arrow"/></svg>
+      </button>
+    </section>
+
+    <!-- 7. MAP PREVIEW -->
+    <section class="section" aria-labelledby="map-title">
+      <div class="section__head reveal">
+        <h2 id="map-title">Map preview</h2>
+        <p>See everything around you at a glance.</p>
+      </div>
+      <div class="map-preview reveal">
+        <div class="map-preview__grid" aria-hidden="true"></div>
+        <span class="pin pin--1" aria-hidden="true"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <span class="pin pin--2" aria-hidden="true"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <span class="pin pin--3" aria-hidden="true"><svg class="icon" width="22" height="22"><use href="#i-pin"/></svg></span>
+        <span class="you-dot" aria-hidden="true"></span>
+        <span class="map-tag">Preview only · interactive map coming later</span>
+        <div class="map-preview__panel">
+          <p>The interactive map will be added in a later stage.</p>
+          <button class="btn btn--primary btn--sm" type="button">Explore map</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+    <footer class="footer">
+      <span class="logo__text">Track Me</span>
+      <span>Sample content for demonstration only. Places and distances are fictional.</span>
+    </footer>
+
+  </main>
+
+  <!-- 8. BOTTOM NAV -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-item is-active" aria-current="page" aria-label="Home" title="Home">
+      <svg class="icon" width="22" height="22"><use href="#i-home"/></svg>
+    </a>
+    <a href="#" class="nav-item" aria-label="Explore" title="Explore">
+      <svg class="icon" width="22" height="22"><use href="#i-compass"/></svg>
+    </a>
+    <a href="#" class="nav-item" aria-label="Map" title="Map">
+      <svg class="icon" width="22" height="22"><use href="#i-map"/></svg>
+    </a>
+    <a href="#" class="nav-item" aria-label="Saved" title="Saved">
+      <svg class="icon" width="22" height="22"><use href="#i-bookmark"/></svg>
+    </a>
+    <a href="#" class="nav-item" aria-label="Profile" title="Profile">
+      <svg class="icon" width="22" height="22"><use href="#i-user"/></svg>
+    </a>
+  </nav>
+
+  <script src="js/app.js" onerror="this.onerror=null;var s=document.createElement('script');s.src='app.js';document.body.appendChild(s)"></script>
+</body>
+</html>
