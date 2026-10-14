@@ -208,6 +208,20 @@
       </div>
     </section>
 
+    <!-- MORE THAN A MAP -->
+    <section class="section" aria-labelledby="social-title">
+      <div class="section__head reveal">
+        <h2 id="social-title">More than a map</h2>
+        <p>Turn exploring into a game you play with friends.</p>
+      </div>
+      <div class="steps features">
+        <article class="step reveal"><span class="step__icon" style="background:var(--yellow)">🔥</span><h3>Daily streaks</h3><p>Check in every day to grow your streak and unlock badges.</p></article>
+        <article class="step reveal"><span class="step__icon" style="background:var(--blue)">🪙</span><h3>Coins and badges</h3><p>Earn coins for check-ins and collect badges as you hit milestones.</p></article>
+        <article class="step reveal"><span class="step__icon" style="background:var(--pink)">🧑‍🎤</span><h3>Your own character</h3><p>Build an avatar with your look, in your colours.</p></article>
+        <article class="step reveal"><span class="step__icon" style="background:var(--purple)">💬</span><h3>Chat and spot streaks</h3><p>Send friends your favourite spots and keep a streak going.</p><span class="soon">Coming soon</span></article>
+      </div>
+    </section>
+
     <div class="duo">
     <!-- 6. FEATURED -->
     <section class="featured reveal">
@@ -285,6 +299,17 @@
     </div>
   </section>
 
+  <!-- PROFILE VIEW (login, avatar character, check-in, coins, badges) -->
+  <section class="view" id="profile-view" aria-label="Profile" hidden>
+    <div class="view__inner">
+      <div class="map-view__bar">
+        <button class="btn btn--sm" id="profile-back" type="button"><svg class="icon icon--sm" width="16" height="16" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg> Back</button>
+        <span class="map-view__title">Your profile</span>
+      </div>
+      <div id="profile-body" class="view__body"></div>
+    </div>
+  </section>
+
   <!-- 8. BOTTOM NAV -->
   <nav class="bottom-nav" aria-label="Main navigation">
     <a href="index.html" class="nav-item is-active" aria-current="page" aria-label="Home" title="Home" data-nav="home">
@@ -304,7 +329,10 @@
     </a>
   </nav>
 
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="js/app.js" onerror="this.onerror=null;var s=document.createElement('script');s.src='app.js';document.body.appendChild(s)"></script>
+  <script src="js/social.js"></script>
 </body>
 </html>

@@ -75,7 +75,10 @@ navItems.forEach((item) => {
     e.preventDefault();
     setNavActive(item.dataset.nav);
     if (item.dataset.nav === "map") openMapView();
-    else if (mapView && !mapView.hidden) closeMapView(true);
+    else {
+      if (mapView && !mapView.hidden) closeMapView(true);
+      if (typeof handleNav === "function") handleNav(item.dataset.nav); // profile view (js/social.js)
+    }
   });
 });
 
@@ -676,6 +679,7 @@ function locateMe() {
 function openMapView() {
   if (!mapView) return;
   reopenMapAt = 0;
+  if (typeof closeProfile === "function") closeProfile(true);
   mapView.hidden = false;
   document.body.classList.add("map-open");
   setNavActive("map");
