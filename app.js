@@ -47,24 +47,35 @@ function filterCards(category, instant) {
 chips.forEach((chip) => {
   chip.addEventListener("click", () => {
     if (chip.classList.contains("is-active")) return;
-    chips.forEach((c) => {
-      c.classList.remove("is-active");
-      c.setAttribute("aria-pressed", "false");
+    const key = chip.dataset.filter;
+    chips.forEach((c) => { // the homepage chips and the map chips stay in sync
+      const on = c.dataset.filter === key;
+      c.classList.toggle("is-active", on);
+      c.setAttribute("aria-pressed", String(on));
     });
-    chip.classList.add("is-active");
-    chip.setAttribute("aria-pressed", "true");
-    filterCards(chip.dataset.filter);
+    filterCards(key);
+    applyMapFilter(key); // map markers use the same filter (no new request)
   });
 });
 
-// Bottom navigation: visual active state only (pages come in later stages)
+// Bottom navigation: the Map item opens the map view; the other items are visual only for now
 const navItems = document.querySelectorAll(".nav-item");
+
+function setNavActive(name) {
+  navItems.forEach((n) => {
+    const on = n.dataset.nav === name;
+    n.classList.toggle("is-active", on);
+    if (on) n.setAttribute("aria-current", "page");
+    else n.removeAttribute("aria-current");
+  });
+}
+
 navItems.forEach((item) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
-    navItems.forEach((n) => { n.classList.remove("is-active"); n.removeAttribute("aria-current"); });
-    item.classList.add("is-active");
-    item.setAttribute("aria-current", "page");
+    setNavActive(item.dataset.nav);
+    if (item.dataset.nav === "map") openMapView();
+    else if (mapView && !mapView.hidden) closeMapView(true);
   });
 });
 
@@ -99,6 +110,7 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 // localStorage, sent to a database or shared. Later features can read appState.location.
 const appState = {
   location: null, // { lat, lng, accuracy, label, source: "gps", timestamp }
+  places: [], // nearby places from Stage 4 (the map reuses these, no new request)
 };
 
 (function initLocation() {
@@ -424,6 +436,7 @@ async function loadNearbyPlaces(loc) {
 
   placesLoading = true;
   feedMode = "loading";
+  appState.places = [];
   cardsBox.replaceChildren(); // the sample cards give way to real results
   emptyState.hidden = true;
   showPlacesStatus("loading", "Discovering places near you...", false);
@@ -434,6 +447,7 @@ async function loadNearbyPlaces(loc) {
     const elements = await fetchPlaces(loc.lat, loc.lng);
     const { places, total, unnamed } = parsePlaces(elements, loc);
     placesKey = key;
+    appState.places = places;
     if (!places.length) {
       feedMode = "empty";
       showPlacesStatus("empty", "We couldn't find mapped places nearby. Try a larger area or another location.", false);
@@ -457,7 +471,255 @@ async function loadNearbyPlaces(loc) {
     showPlacesStatus("error", "We couldn't load nearby places right now. Please try again.", true);
   } finally {
     placesLoading = false;
+    onPlacesChanged(); // let the map know (if it is open)
   }
 }
 
 if (placesRetry) placesRetry.addEventListener("click", () => loadNearbyPlaces(appState.location));
+
+// 6. Interactive map: Leaflet + OpenStreetMap tiles.
+// It reuses appState.location and appState.places, so no new API request is needed for the markers.
+const mapView = document.getElementById("map-view");
+const mapEl = document.getElementById("leaflet-map");
+const mapMsg = document.getElementById("map-msg");
+const mapMsgText = document.getElementById("map-msg-text");
+const mapMsgBtn = document.getElementById("map-msg-btn");
+
+const PLACE_COLORS = {
+  shopping: "#FF5FA2", supermarkets: "#22BB86", restaurants: "#FF8A3D", cafes: "#D9962B",
+  hangouts: "#7B4DFF", parks: "#4CC05A", essentials: "#E5484D",
+};
+
+let leafletMap = null; // created once, then reused every time the map view opens
+let tileLayer = null;
+let placeLayer = null; // holds only the markers that match the current category
+let userMarker = null;
+let accuracyCircle = null;
+let placeMarkers = []; // { category, marker } for every place
+let drawnPlaces = null; // which data the markers were built from (avoids rebuilding)
+let drawnLocation = null;
+let tileErrors = 0;
+let tileFailed = false;
+let msgAction = null;
+let reopenMapAt = 0; // set when the user starts "Find My Location" from the map
+
+function showMapMessage(text, buttonLabel, action) {
+  if (!mapMsg) return;
+  mapMsg.hidden = false;
+  mapMsgText.textContent = text;
+  mapMsgBtn.hidden = !buttonLabel;
+  if (buttonLabel) mapMsgBtn.textContent = buttonLabel;
+  msgAction = action || null;
+}
+
+function hideMapMessage() {
+  if (mapMsg) mapMsg.hidden = true;
+}
+
+// Decides which (if any) helpful message to show over the map
+function updateMapMessage() {
+  if (!leafletMap) return;
+  if (tileFailed) {
+    showMapMessage("Map tiles couldn't be loaded. Check your connection and try again.", "Try again", () => {
+      tileErrors = 0;
+      tileFailed = false;
+      tileLayer.redraw();
+      updateMapMessage();
+    });
+  } else if (!appState.location) {
+    showMapMessage("Find your location to see places around you.", "Find My Location", findFromMap);
+  } else if (placesLoading) {
+    showMapMessage("Discovering places near you...");
+  } else if (!appState.places.length) {
+    showMapMessage("There are no mapped places to show here yet.");
+  } else if (!placeLayer.getLayers().length) {
+    showMapMessage("No places in this category on the map.");
+  } else {
+    hideMapMessage();
+  }
+}
+
+function initMap() {
+  if (leafletMap) return true; // only ever create one map
+  if (typeof L === "undefined" || !mapEl) {
+    showMapMessage("The map couldn't load. Check your internet connection, then reload the page.", "Reload", () => window.location.reload());
+    return false;
+  }
+  leafletMap = L.map(mapEl, { minZoom: 2, worldCopyJump: true }).setView([20, 0], 2); // world view until we have a location
+  tileLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(leafletMap);
+  tileLayer.on("tileload", () => {
+    tileErrors = 0;
+    if (tileFailed) { tileFailed = false; updateMapMessage(); }
+  });
+  tileLayer.on("tileerror", () => {
+    tileErrors++;
+    if (tileErrors >= 3 && !tileFailed) { tileFailed = true; updateMapMessage(); }
+  });
+  placeLayer = L.layerGroup().addTo(leafletMap);
+  return true;
+}
+
+function drawUser(loc) {
+  if (userMarker) leafletMap.removeLayer(userMarker);
+  if (accuracyCircle) leafletMap.removeLayer(accuracyCircle);
+  userMarker = L.marker([loc.lat, loc.lng], {
+    icon: L.divIcon({
+      className: "user-marker",
+      html: '<span class="user-marker__pulse"></span><span class="user-marker__dot"></span>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+    }),
+    title: "You are here",
+    zIndexOffset: 1000, // always above the place markers
+  }).addTo(leafletMap);
+  userMarker.bindPopup("You are here" + (loc.label ? ": " + loc.label : ""));
+  if (loc.accuracy && loc.accuracy < 1500) { // only show the accuracy circle when it is a sensible size
+    accuracyCircle = L.circle([loc.lat, loc.lng], {
+      radius: loc.accuracy, color: "#0FADFF", weight: 1.5, fillColor: "#0FADFF", fillOpacity: 0.12, interactive: false,
+    }).addTo(leafletMap);
+  }
+}
+
+function makePlaceIcon(category) {
+  const cat = PLACE_CATEGORIES[category];
+  return L.divIcon({
+    className: "", // no default Leaflet icon styling
+    html: '<div class="pin-marker" style="--c:' + PLACE_COLORS[category] + '"><svg class="icon" width="20" height="20"><use href="#i-' + cat.icon + '"/></svg></div>',
+    iconSize: [40, 40],
+    iconAnchor: [20, 48],
+    popupAnchor: [0, -46],
+  });
+}
+
+// Popup content is built with textContent so place names are always treated as plain text
+function makePopup(place) {
+  const wrap = document.createElement("div");
+  wrap.className = "map-popup";
+  wrap.innerHTML =
+    '<h3></h3><p class="card__cat"></p>' +
+    '<p class="card__dist"><svg class="icon icon--sm" width="16" height="16"><use href="#i-pin"/></svg> <span></span></p>' +
+    '<a class="btn btn--sm card__view" target="_blank" rel="noopener noreferrer">View place</a>';
+  wrap.querySelector("h3").textContent = place.name;
+  const cat = wrap.querySelector(".card__cat");
+  cat.textContent = place.typeLabel;
+  cat.style.setProperty("--c", PLACE_COLORS[place.category]);
+  const dist = wrap.querySelector(".card__dist");
+  if (Number.isFinite(place.distance)) dist.querySelector("span").textContent = formatDistance(place.distance);
+  else dist.remove(); // distance not available
+  const link = wrap.querySelector(".card__view");
+  link.href = "https://www.openstreetmap.org/" + place.osmType + "/" + place.osmId;
+  link.setAttribute("aria-label", "View " + place.name + " on OpenStreetMap");
+  return wrap;
+}
+
+function drawPlaces(places) {
+  placeLayer.clearLayers();
+  placeMarkers = [];
+  places.forEach((place) => {
+    if (!Number.isFinite(place.lat) || !Number.isFinite(place.lng)) return; // skip anything without coordinates
+    const marker = L.marker([place.lat, place.lng], { icon: makePlaceIcon(place.category), title: place.name, riseOnHover: true });
+    marker.bindPopup(makePopup(place), { autoPanPadding: [20, 20] });
+    placeMarkers.push({ category: place.category, marker });
+  });
+  applyMapFilter(activeFilter());
+}
+
+function activeFilter() {
+  const chip = document.querySelector(".chip.is-active");
+  return chip ? chip.dataset.filter : "all";
+}
+
+// Show only the markers of the selected category (All shows everything). No data is fetched.
+function applyMapFilter(category) {
+  if (!leafletMap) return;
+  placeMarkers.forEach((item) => {
+    if (category === "all" || item.category === category) placeLayer.addLayer(item.marker);
+    else placeLayer.removeLayer(item.marker);
+  });
+  updateMapMessage();
+}
+
+// Draws the user and the places, but only when they changed. Returns true if anything was redrawn.
+function syncMapData() {
+  let changed = false;
+  if (appState.location && drawnLocation !== appState.location) {
+    drawUser(appState.location);
+    drawnLocation = appState.location;
+    changed = true;
+  }
+  if (drawnPlaces !== appState.places) {
+    drawPlaces(appState.places);
+    drawnPlaces = appState.places;
+    changed = true;
+  }
+  updateMapMessage();
+  return changed;
+}
+
+function fitMapToData() {
+  if (!leafletMap) return;
+  const bounds = L.latLngBounds([]);
+  placeLayer.getLayers().forEach((marker) => bounds.extend(marker.getLatLng()));
+  if (appState.location) bounds.extend([appState.location.lat, appState.location.lng]);
+  if (bounds.isValid()) leafletMap.fitBounds(bounds, { padding: [50, 50], maxZoom: 16, animate: !reduceMotion });
+}
+
+function locateMe() {
+  const loc = appState.location;
+  if (!leafletMap || !loc) { updateMapMessage(); return; }
+  leafletMap.setView([loc.lat, loc.lng], Math.max(leafletMap.getZoom(), 15), { animate: !reduceMotion });
+}
+
+function openMapView() {
+  if (!mapView) return;
+  reopenMapAt = 0;
+  mapView.hidden = false;
+  document.body.classList.add("map-open");
+  setNavActive("map");
+  if (!initMap()) return;
+  const changed = syncMapData();
+  leafletMap.invalidateSize(); // the container was hidden, so tell Leaflet its real size
+  if (changed) fitMapToData();
+}
+
+function closeMapView(keepNav) {
+  if (!mapView) return;
+  mapView.hidden = true;
+  document.body.classList.remove("map-open");
+  if (!keepNav) setNavActive("home");
+}
+
+// No location yet: go back, run the normal Find My Location flow, and reopen the map when places arrive
+function findFromMap() {
+  const findBtn = document.getElementById("find-location");
+  if (!findBtn) return;
+  reopenMapAt = Date.now();
+  closeMapView();
+  window.scrollTo(0, 0);
+  findBtn.click();
+}
+
+// Called every time a nearby-places request finishes
+function onPlacesChanged() {
+  if (reopenMapAt && Date.now() - reopenMapAt < 60000) {
+    openMapView();
+  } else if (leafletMap && mapView && !mapView.hidden) {
+    if (syncMapData()) fitMapToData();
+  }
+}
+
+// Buttons and shortcuts (each listener is added only once, here)
+document.querySelectorAll("[data-open-map]").forEach((btn) => btn.addEventListener("click", openMapView));
+const mapBack = document.getElementById("map-back");
+if (mapBack) mapBack.addEventListener("click", () => closeMapView());
+const mapLocate = document.getElementById("map-locate");
+if (mapLocate) mapLocate.addEventListener("click", locateMe);
+const mapFit = document.getElementById("map-fit");
+if (mapFit) mapFit.addEventListener("click", fitMapToData);
+if (mapMsgBtn) mapMsgBtn.addEventListener("click", () => { if (msgAction) msgAction(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && mapView && !mapView.hidden) closeMapView();
+});
