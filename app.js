@@ -679,7 +679,7 @@ function locateMe() {
 function openMapView() {
   if (!mapView) return;
   reopenMapAt = 0;
-  if (typeof closeProfile === "function") closeProfile(true);
+  if (typeof closeSocialViews === "function") closeSocialViews(true);
   mapView.hidden = false;
   document.body.classList.add("map-open");
   setNavActive("map");

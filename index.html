@@ -32,6 +32,8 @@
       <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
     <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
     </defs>
   </svg>
 
@@ -218,7 +220,7 @@
         <article class="step reveal"><span class="step__icon" style="background:var(--yellow)">🔥</span><h3>Daily streaks</h3><p>Check in every day to grow your streak and unlock badges.</p></article>
         <article class="step reveal"><span class="step__icon" style="background:var(--blue)">🪙</span><h3>Coins and badges</h3><p>Earn coins for check-ins and collect badges as you hit milestones.</p></article>
         <article class="step reveal"><span class="step__icon" style="background:var(--pink)">🧑‍🎤</span><h3>Your own character</h3><p>Build an avatar with your look, in your colours.</p></article>
-        <article class="step reveal"><span class="step__icon" style="background:var(--purple)">💬</span><h3>Chat and spot streaks</h3><p>Send friends your favourite spots and keep a streak going.</p><span class="soon">Coming soon</span></article>
+        <article class="step reveal"><span class="step__icon" style="background:var(--purple)">💬</span><h3>Chat and spot streaks</h3><p>Send friends your favourite spots and keep a streak going together.</p></article>
       </div>
     </section>
 
@@ -303,7 +305,7 @@
   <section class="view" id="profile-view" aria-label="Profile" hidden>
     <div class="view__inner">
       <div class="map-view__bar">
-        <button class="btn btn--sm" id="profile-back" type="button"><svg class="icon icon--sm" width="16" height="16" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg> Back</button>
+        <button class="btn btn--sm" data-back type="button"><svg class="icon icon--sm" width="16" height="16" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg> Back</button>
         <span class="map-view__title">Your profile</span>
       </div>
       <div id="profile-body" class="view__body"></div>
@@ -315,14 +317,14 @@
     <a href="index.html" class="nav-item is-active" aria-current="page" aria-label="Home" title="Home" data-nav="home">
       <svg class="icon" width="22" height="22"><use href="#i-home"/></svg>
     </a>
-    <a href="#" class="nav-item" aria-label="Explore" title="Explore" data-nav="explore">
-      <svg class="icon" width="22" height="22"><use href="#i-compass"/></svg>
+    <a href="#" class="nav-item" aria-label="Friends" title="Friends" data-nav="friends">
+      <svg class="icon" width="22" height="22"><use href="#i-users"/></svg>
     </a>
     <a href="#" class="nav-item" aria-label="Map" title="Map" data-nav="map">
       <svg class="icon" width="22" height="22"><use href="#i-map"/></svg>
     </a>
-    <a href="#" class="nav-item" aria-label="Saved" title="Saved" data-nav="saved">
-      <svg class="icon" width="22" height="22"><use href="#i-bookmark"/></svg>
+    <a href="#" class="nav-item" aria-label="Activity" title="Activity" data-nav="activity">
+      <svg class="icon" width="22" height="22"><use href="#i-activity"/></svg>
     </a>
     <a href="#" class="nav-item" aria-label="Profile" title="Profile" data-nav="profile">
       <svg class="icon" width="22" height="22"><use href="#i-user"/></svg>
